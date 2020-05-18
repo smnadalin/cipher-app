@@ -24,27 +24,41 @@ header
   margin-top: 10px;
 }
 
-label
+textarea
 {
-  padding: 10px;
-}
 
-input
-{
-  margin: 10px;
+  font-family: Arial, Helvetica, sans-serif, sans-serif;
+  font-size: 1em;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  width: 98%;
+  height: 12em;
+  resize: vertical;
+  min-height: 4em;
+  box-sizing: border-box;
+  border-radius: 4px;
 
 }
 
 button
 {
   margin: 10px;
+  padding: 8px;
+  font-size: 1em;
+  background-color: #4CAF50;;
+  color: white;
+  border-radius: 4px;
+  border: none;
   
 }
 
-p
+h3
 {
   padding: 10px;
   margin: 0px;
+  
 }
 
 

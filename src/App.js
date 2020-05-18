@@ -10,9 +10,8 @@ class App extends React.Component
         <h1 className="headerText">Cipher Identifier and Analyser</h1>
       </header>
       <form className="cipherTextForm">
-          <p>Enter your cipher text below</p>
-          <label for="cipherText">Cipher Text:</label>
-          <input type="text"></input>
+          <h3>Enter your cipher text below:</h3>
+          <textarea></textarea>
           <button type="submit">Sumbit</button>
       </form>
       </div>
