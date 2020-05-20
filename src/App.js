@@ -3,6 +3,22 @@ import './App.css';
 
 class App extends React.Component
 {
+  constructor()
+  {
+    super();
+    this.state = {cipherText: ""};
+  }
+
+  handleChange = (event) =>
+  {
+    this.setState(
+      {cipherText: event.target.value}
+    )
+
+    event.preventDefault();
+    //event.stopPropagation(); 
+  }
+
   render() 
   {
     return <div>
@@ -11,8 +27,8 @@ class App extends React.Component
       </header>
       <form className="cipherTextForm">
           <h3>Enter your cipher text below:</h3>
-          <textarea></textarea>
-          <button type="submit">Sumbit</button>
+          <textarea onChange={this.handleChange} value={this.state.cipherText}></textarea>
+          <button type="submit" onChange={this.handleChange}>Sumbit</button>
       </form>
       </div>
     
