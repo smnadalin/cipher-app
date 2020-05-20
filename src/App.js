@@ -16,8 +16,13 @@ class App extends React.Component
     )
 
     event.preventDefault();
-    //event.stopPropagation(); 
   }
+
+  handleSubmit = (event) =>
+  {
+    event.preventDefault();
+  }
+
 
   render() 
   {
@@ -25,10 +30,10 @@ class App extends React.Component
       <header>
         <h1 className="headerText">Cipher Identifier and Analyser</h1>
       </header>
-      <form className="cipherTextForm">
+      <form className="cipherTextForm" onSubmit={this.handleSubmit}>
           <h3>Enter your cipher text below:</h3>
           <textarea onChange={this.handleChange} value={this.state.cipherText}></textarea>
-          <button type="submit" onChange={this.handleChange}>Sumbit</button>
+          <button type="submit">Sumbit</button>
       </form>
       </div>
     
