@@ -8,8 +8,12 @@ class App extends React.Component
     super();
    
     //Initialise state
-    this.state = {cipherText: "test",
-                  numberFrequency: createAlphabetArray()};
+    this.state = {cipherText: "",
+                  letterFrequency: createAlphabetArray(),
+                  cipherTextCharacterLength: 0,
+                  cipherTextLength: 0,
+                  cipherTextUniqueCharacters: 0,
+                  analysed: false};
   }
 
   //Update changes to cipherText
@@ -31,8 +35,10 @@ class App extends React.Component
   //Counts the frequency of each letter
   letterFrequency = (str) =>
   {
-    let numberFrequencyUpdate = createAlphabetArray();
+    let letterFrequencyUpdate = createAlphabetArray();
     let firstLetter = "a".charCodeAt(0);
+    let characterLength = 0;
+    let uniqueCharacters = 0;
 
     for (let i = 0; i < str.length; i++)
     {
@@ -40,14 +46,49 @@ class App extends React.Component
       
       if (characterCode >= 97 && characterCode <= 122)
       {
-        numberFrequencyUpdate[characterCode - firstLetter].frequency++;
+        letterFrequencyUpdate[characterCode - firstLetter].frequency++;
+        characterLength++;
+      }
+    }
+
+    for (let i = 0; i < 26; i++)
+    {
+      if (letterFrequencyUpdate[i].frequency > 0)
+      {
+        uniqueCharacters++;
       }
     }
 
     this.setState(
-        {numberFrequency: numberFrequencyUpdate}
+        {letterFrequency: letterFrequencyUpdate,
+        cipherTextLength: str.length,
+        cipherTextCharacterLength: characterLength,
+        analysed: true,
+        cipherTextUniqueCharacters: uniqueCharacters}
       )
+  }
+
+  renderAnalysed = () =>
+  {
+    if (this.state.analysed)
+    {
+      return <div className="analysisContainer">
+      <h4>Letter Frequency:</h4>
+      <table className="frequencyTable">
+        <tr>{this.state.letterFrequency.map(letter => <th>{letter.letter}</th>)}</tr>
+        <tr>{this.state.letterFrequency.map(letter => <td>{letter.frequency}</td>)}</tr>
+      </table>
+      <div className="analysisStatsContainer">
+        <p className="analysisStatsContent">
+          <b>Unique Characters: </b>{this.state.cipherTextUniqueCharacters}<br></br>
+          <b>Length (total): </b>{this.state.cipherTextLength}<br></br>
+          <b>Length (characters): </b>{this.state.cipherTextCharacterLength}
+        </p>
+      </div>
+    </div>
     }
+  }
+    
 
   render()  
   {
@@ -60,9 +101,8 @@ class App extends React.Component
           <textarea onChange={this.handleChange} value={this.state.cipherText}></textarea>
           <button type="submit">Sumbit</button>
       </form>
-      <ul className="frequencyList">
-        {this.state.numberFrequency.map(letter => <li key={letter.letter}>{letter.letter}: {letter.frequency},</li>)}
-      </ul>
+      {this.renderAnalysed()}
+      
       </div>
   }
 }
