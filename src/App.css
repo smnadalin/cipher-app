@@ -1,46 +1,46 @@
-header
-{
+header {
   width: 100%;
   margin: 0px;
   padding: 10px;
   background-color: rgb(47, 53, 59);
 }
 
-.headerText
-{
+.headerText {
   width: 98%;
   margin: 0px;
-  margin-left:auto;
-  margin-right:auto;
+  margin-left: auto;
+  margin-right: auto;
   color: white;
 }
 
-.cipherTextForm
-{
+.cipherTextForm {
   background-color: lightgray;
   width: 98%;
-  margin-left:auto;
-  margin-right:auto;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 10px;
 }
 
-.analysisContainer
-{
+.analysisContainer {
   width: 98%;
-  margin-left:auto;
-  margin-right:auto;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 10px;
 }
 
-
-.analysisStatsContent
-{
+.analysisStatsContent {
   text-align: center;
 }
 
-textarea
-{
+ul {
+  padding: 0px;
+}
 
+.solutionHeading {
+  padding: 0px;
+}
+
+textarea {
   font-family: Arial, Helvetica, sans-serif, sans-serif;
   font-size: 1em;
   display: block;
@@ -55,64 +55,58 @@ textarea
   border-radius: 4px;
 }
 
-button
-{
+button {
   margin: 10px;
   padding: 8px;
   font-size: 1em;
-  background-color: #4CAF50;;
+  background-color: #4caf50;
   color: white;
   border-radius: 4px;
   border: none;
 }
 
-h3
-{
-  padding: 10px;
-  margin: 0px;
-  
+button:hover {
+  background-color: #4caf50;
 }
 
-h4
-{
+h3 {
+  padding: 10px;
+  margin: 0px;
+}
+
+h4 {
   text-align: center;
 }
 
-.frequencyTable
-{
+.frequencyTable {
   border-collapse: collapse;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
-  
 }
 
-th
-{
+th {
   background-color: rgb(30, 46, 63);
   color: white;
 }
 
- th, tr, td
-{
+th,
+tr,
+td {
   border: 1px solid rgb(47, 53, 59);
   padding: 3px;
 }
 
-@media only screen and (min-width:992px)
-{
-  .cipherTextForm
-  {
+@media only screen and (min-width: 992px) {
+  .cipherTextForm {
     width: 960px;
   }
 
-  .headerText
-  {
+  .headerText {
     width: 960px;
   }
 
-  .plainTextContainer
-  {
+  .analysisContainer {
     width: 960px;
   }
 }
