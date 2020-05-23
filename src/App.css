@@ -61,7 +61,17 @@ h3
   
 }
 
+.frequencyList
+{
+  list-style: none;
+ 
+}
 
+li
+{
+
+  display:inline-block;
+}
 
 @media only screen and (min-width:992px)
 {

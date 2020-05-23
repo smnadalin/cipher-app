@@ -9,7 +9,7 @@ class App extends React.Component
    
     //Initialise state
     this.state = {cipherText: "test",
-                  ...createAlphabetObject()};
+                  numberFrequency: createAlphabetArray()};
   }
 
   //Update changes to cipherText
@@ -26,26 +26,30 @@ class App extends React.Component
   {
     event.preventDefault();
     this.letterFrequency(this.state.cipherText);
-
   }
 
   //Counts the frequency of each letter
   letterFrequency = (str) =>
   {
+    let numberFrequencyUpdate = createAlphabetArray();
+    let firstLetter = "a".charCodeAt(0);
+
     for (let i = 0; i < str.length; i++)
     {
-      let character = str.charAt(i);
-      console.log(character);
-      this.setState(prevState => (
-        {[character]: prevState[character] + 1}
-      )
-      )
+      let characterCode = str.charCodeAt(i);
       
+      if (characterCode >= 97 && characterCode <= 122)
+      {
+        numberFrequencyUpdate[characterCode - firstLetter].frequency++;
+      }
     }
-    console.log(this.state);
-  }
 
-  render() 
+    this.setState(
+        {numberFrequency: numberFrequencyUpdate}
+      )
+    }
+
+  render()  
   {
     return <div>
       <header>
@@ -56,21 +60,24 @@ class App extends React.Component
           <textarea onChange={this.handleChange} value={this.state.cipherText}></textarea>
           <button type="submit">Sumbit</button>
       </form>
-    <h4>A frequency is {this.state.a}, B frequency is {this.state.b}, C frequency is {this.state.c}...</h4>
+      <ul className="frequencyList">
+        {this.state.numberFrequency.map(letter => <li key={letter.letter}>{letter.letter}: {letter.frequency},</li>)}
+      </ul>
       </div>
   }
 }
 
 export default App;
 
-function createAlphabetObject()
+function createAlphabetArray()
 {
   let firstLetter = "a".charCodeAt(0);
   let lastLetter = "z".charCodeAt(0);
-  let alphabet = {};
+  let alphabet = new Array(26);
   for (let i = firstLetter; i <= lastLetter; i++)
   {
-    alphabet[String.fromCharCode(i)] = 0;
+    alphabet[i - firstLetter] = {letter: String.fromCharCode(i),
+                                frequency: 0};
   }
   return alphabet;
 }
