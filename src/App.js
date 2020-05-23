@@ -144,12 +144,14 @@ class App extends React.Component {
         </div>
       );
     } else {
-      <div>
-        <ul>
-          <b>Unknown cipher: </b>We cannot suggest a cipher based on the
-          provided ciphertext.
-        </ul>
-      </div>;
+      likelyCipher = (
+        <div>
+          <ul>
+            <b>Unknown cipher: </b>We cannot suggest a cipher based on the
+            provided ciphertext.
+          </ul>
+        </div>
+      );
     }
     return (
       <div className="solutionContainer">
