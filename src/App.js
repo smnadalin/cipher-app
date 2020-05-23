@@ -1,6 +1,9 @@
 import React from "react";
 import "./App.css";
 
+const firstLetter = "a".charCodeAt(0);
+const lastLetter = "z".charCodeAt(0);
+
 class App extends React.Component {
   constructor() {
     super();
@@ -8,7 +11,7 @@ class App extends React.Component {
     //Initialise state
     this.state = {
       cipherText: "",
-      letterFrequency: createAlphabetArray(),
+      letterFrequency: createFrequencyArray(),
       cipherTextCharacterLength: 0,
       cipherTextLength: 0,
       cipherTextUniqueCharacters: 0,
@@ -16,6 +19,26 @@ class App extends React.Component {
       cipherTextSpaces: 0,
     };
   }
+
+  stringPositionReplace = (str, position, newCharacter) => {
+    let startString = position === 0 ? "" : str.substring(0, position);
+    let endString =
+      position === str.length - 1
+        ? ""
+        : str.substring(position + 1, str.length);
+    return startString + newCharacter + endString;
+  };
+
+  balconianCodeGenerator = (str, position) => {
+    if (str.charAt(position) === "a") {
+      return this.stringPositionReplace(str, position, "b");
+    } else {
+      return this.balconianCodeGenerator(
+        this.stringPositionReplace(str, position, "a"),
+        position - 1
+      );
+    }
+  };
 
   //Update changes to cipherText
   handleChange = (event) => {
@@ -29,10 +52,9 @@ class App extends React.Component {
     this.analyser(this.state.cipherText);
   };
 
-  //Counts the frequency of each letter
+  //Analysers the ciphertext
   analyser = (str) => {
-    let letterFrequencyUpdate = createAlphabetArray();
-    let firstLetter = "a".charCodeAt(0);
+    let letterFrequencyUpdate = createFrequencyArray();
     let characterLength = 0;
     let uniqueCharacters = 0;
     let spaces = 0;
@@ -43,7 +65,7 @@ class App extends React.Component {
       if (characterCode >= 97 && characterCode <= 122) {
         letterFrequencyUpdate[characterCode - firstLetter].frequency++;
         characterLength++;
-      } else if (characterCode == 20) {
+      } else if (characterCode === 20) {
         spaces++;
       }
     }
@@ -71,16 +93,20 @@ class App extends React.Component {
           {this.renderSolutions(this.state.cipherTextUniqueCharacters)}
           <h4>Letter Frequency:</h4>
           <table className="frequencyTable">
-            <tr>
-              {this.state.letterFrequency.map((letter) => (
-                <th>{letter.letter}</th>
-              ))}
-            </tr>
-            <tr>
-              {this.state.letterFrequency.map((letter) => (
-                <td>{letter.frequency}</td>
-              ))}
-            </tr>
+            <thead>
+              <tr>
+                {this.state.letterFrequency.map((letter) => (
+                  <th key={letter.letter}>{letter.letter}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                {this.state.letterFrequency.map((letter) => (
+                  <td key={letter.letter}>{letter.frequency}</td>
+                ))}
+              </tr>
+            </tbody>
           </table>
           <div className="analysisStatsContainer">
             <p className="analysisStatsContent">
@@ -99,9 +125,44 @@ class App extends React.Component {
     }
   };
 
+  renderBalconianTableBody = () => {
+    let balconianTable = new Array(24);
+    let j = firstLetter;
+    let letter = "";
+    let code = "aaaaa";
+    for (let i = 0; i < 24; i++) {
+      if (i === 8) {
+        letter = "i/j";
+        j += 2;
+      } else if (i === 19) {
+        letter = "u/v";
+        j += 2;
+      } else {
+        letter = String.fromCharCode(j);
+        j++;
+      }
+
+      if (i > 0) {
+        code = this.balconianCodeGenerator(code, 4);
+      }
+
+      balconianTable[i] = {
+        letter: letter,
+        code: code,
+      };
+    }
+
+    return balconianTable.map((row) => (
+      <tr key={"balconian" + row.letter}>
+        <td key={"balconianLetter" + row.letter}>{row.letter}</td>
+        <td key={"balconianCode" + row.letter}>{row.code}</td>
+      </tr>
+    ));
+  };
+
   renderSolutions = (uniqueCharacters) => {
     let likelyCipher = "";
-    if (uniqueCharacters == 2) {
+    if (uniqueCharacters === 2) {
       likelyCipher = (
         <div>
           <ul>
@@ -109,6 +170,15 @@ class App extends React.Component {
             <br></br>Each plaintext letter is replaced by a group of five
             letters made from two characters, based on a defined alphabet.
           </ul>
+          <table>
+            <thead>
+              <tr>
+                <th>Letter</th>
+                <th>Code</th>
+              </tr>
+            </thead>
+            <tbody>{this.renderBalconianTableBody()}</tbody>
+          </table>
           <ul>
             <b>Morse Code Cipher:</b>
             <br></br>Each plaintext letter is replaced by a group of two
@@ -116,7 +186,7 @@ class App extends React.Component {
           </ul>
         </div>
       );
-    } else if (uniqueCharacters == 5) {
+    } else if (uniqueCharacters === 5) {
       likelyCipher = (
         <div>
           <ul>
@@ -183,9 +253,7 @@ class App extends React.Component {
 
 export default App;
 
-function createAlphabetArray() {
-  let firstLetter = "a".charCodeAt(0);
-  let lastLetter = "z".charCodeAt(0);
+function createFrequencyArray() {
   let alphabet = new Array(26);
   for (let i = firstLetter; i <= lastLetter; i++) {
     alphabet[i - firstLetter] = {
