@@ -175,6 +175,8 @@ class App extends React.Component {
 //    }
 //  }
 
+//this is a test update
+
   renderSolutions = (uniqueCharacters) => {
     let likelyCipher = "";
     if (uniqueCharacters === 2) {
