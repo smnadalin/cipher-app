@@ -165,10 +165,13 @@ class App extends React.Component {
 //    let polybiusKey = "abcdefghiklmnopqrstuvwxyz";
 //    for (var i = 0; i < 5; i++)
 //    {
+        //<tr>
 //      for (var j = 0; j < 6; j++)
 //      {
 //        <td></td>
+
 //      }
+        //</tr></tr></tr>
 //    }
 //  }
 
