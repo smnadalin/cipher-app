@@ -160,6 +160,18 @@ class App extends React.Component {
     ));
   };
 
+//  renderPolybiusTable = () =>
+//  {
+//    let polybiusKey = "abcdefghiklmnopqrstuvwxyz";
+//    for (var i = 0; i < 5; i++)
+//    {
+//      for (var j = 0; j < 6; j++)
+//      {
+//        <td></td>
+//      }
+//    }
+//  }
+
   renderSolutions = (uniqueCharacters) => {
     let likelyCipher = "";
     if (uniqueCharacters === 2) {
@@ -243,7 +255,7 @@ class App extends React.Component {
             onChange={this.handleChange}
             value={this.state.cipherText}
           ></textarea>
-          <button type="submit">Sumbit</button>
+          <button type="submit">Submit</button>
         </form>
         {this.renderAnalysed()}
       </div>
